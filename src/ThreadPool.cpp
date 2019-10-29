@@ -20,8 +20,9 @@ void ThreadPool::workerThread() {
 	}
 }
 
-ThreadPool::ThreadPool(unsigned count) : done(false), threadCount(count), threads(vector<std::thread>(count)) {
+ThreadPool::ThreadPool(unsigned count, int queueSZ) : done(false), threadCount(count), workQueue(queueSZ), threads(vector<std::thread>(count)) {
 	std::cout << "Launching [" << threadCount << "] threads " << std::endl;
+    threads.clear();
 
 	try {
 		for (unsigned i = 0; i < threadCount; ++i) {
